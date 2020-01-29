@@ -1,104 +1,86 @@
 # Desafio `academia node FICR`
 
-Overview
-API REST in Node.js usando ES6 and Express com Code Coverage e autenticação JWT
+Neste desafio você deverá desenvolver uma api que retorna um currículo dinâmico. Para isso, você deverá comunicar-se com dois serviços para capturar informações. A api do Facebook e a api do Github.
 
-Documentation
-https://weberamaral.github.io/cs-desafio-node/
+## Especificações do projeto
 
-Endpoints
-Aplicação disponibilizada em: http://dev-cs-desafio-node.sa-east-1.elasticbeanstalk.com/
+* Utilizar o [express](https://www.npmjs.com/package/express)
 
-Routes
-GET /api/v1 - Version
-Retorna a versão e nome da aplicação
+* Utilizar algum pattern para estruturar o projeto
 
-GET /api/v1/health-check - Health Check
-Simples health check da aplicação
+* O projeto deverá ser publicado no github
 
-POST /api/v1/user - Cadastro de usuários
-Cadastra novos usuários na aplicação
+* Publicar o projeto no [Heroku](https://www.heroku.com/)
 
-GET /api/v1/user/:id - Busca de usuário
-Recupera um determinado usuário pelo ID
+* Caso o usuário acesse uma rota que não foi especificada, deverá ser apresentado para ele uma mensagem de com o status 404
 
-POST /api/v1/auth/sign_in - Autenticação
-Autentica um usuário na aplicação
+## Pontos extras
 
-Features
-ECMAScript 6 - Escrita do código fonte.
-Geração de token de usuário com JsonWebToken - usando jsonwebtoken
-Code Linting - Javascript code linting usando ESLint para identificar e reportar padrões de escrita em Javascript. Utilizando as regras bases de eslint-contrib-airbnb
-Reinicialização automática do servidor - Reinicialização do servidor com nodemon
-Debugging via debug - Apresenta informações de debug quando configurada a variável DEBUG na aplicação.
-Validações de parametros de entrada via express-validation - Valida body, params, quary, headers e cookies da requisição via middleware.
-Pre-commit hooks - Roda as tarefas de lint e tests em cada comit na aplicação.
-Securança do App via helmet - Helmet ajuda na segurança de aplicações Express, configurando diversos HTTP headers e mais...
-Suporte CORS via cors
-Utilização de http-status - Para configurar os status code da aplicação.
-.editorconfig - Para padronização de configurações entre IDEs
-AWS Beanstalk - Host para aplicação
-MySQL com ORM Sequelize
-Local Requirements
-AWS
-Conta de desenvolvimento em aws.amazon.com
-AWS Elastic BeanStalk elasticbeanstalk
-AWS CLI - Instruções de instalação AWS CLI install
-AWS EB CLI - Instruções de instalação AWS EB CLI install
-NodeJS
-NodeJS >=6.9 nodejs
-NPM >=3
-MySQL
-MySQL server
-Getting Started
-Clone o repositório:
+* Publicar o projeto no [Heroku](https://www.heroku.com/) utilizando dockerfile
 
-git clone https://github.com/weberamaral/cs-desafio-node.git
-cd cs-desafio-node
-Instale as dependencias:
+* Criar testes utilizando [Jest](https://www.npmjs.com/package/jest)
 
-npm install
-Configure as variáveis de ambiente:
+* Utilizar ferramentas de qualidade de código: [Eslint](https://www.npmjs.com/package/eslint) e [EditorConfig](https://editorconfig.org/)
 
-cp .env.example .env
-Inicie o servidor:
+* Implementar as requisições aos serviços em paralelo, visto que um serviço não depende do outro
 
-# Iniciando o servidor em produção
-npm start
+* Sinta-se livre para adicionar features ao seu gosto. Exemplo: tradução do conteúdo utilizando flags na requisição, como mostrado abaixo.
 
-# Iniciando o servidor em desenvolvimento
-npm run start:development
-Testes:
+````http
+  GET  /api/curriculo?lang=en_us
+````
 
-# Rodando os testes escritos em ES6
-npm test
+## Requisitos técnicos
 
-# Rodando os testes junto com a cobertura de testes
-npm run test:coverage
+* O projeto deve conter a seguinte rota:
 
-# Rodando os testes em modo escuta
-npm run test:watch
-Lint:
+````http
+  GET  /api/curriculo
+````
 
-# Lint do código escrito em ES6
-npm run lint
+* A rota deve conter a seguinte resposta:
 
-# Lint do código escrito em ES6 em modo escuta
-npm run lint:watch
-Init, Create e Deploy:
+````json
+  {
+    "facebook_profile": {
+      "image": "https://imagem-do-perfil",
+      "name": "Fulano",
+      "surname": "Silva",
+      "Address": "Rua fulano de tal, 256 - Pe",
+      "gender": "Masculino",
+      "birthday": "12/12/1994",
+      "email": "fulano@gmail.com"
+    },
+    "github_profile": {
+      "name": "Fulano da Silva",
+      "html_url": "https://github.com/fulano",
+      "bio": "Fullstack Developer and Mobile Developer",
+      "company": "@Accenture",
+      "repositories": [
+        {
+          "size": 49,
+          "name": "academia-nodejs-ficr",
+          "url": "https://api.github.com/repos/mizamelo/academia-nodejs-ficr"
+        },
+        {
+          "size": 37,
+          "name": "academia-php",
+          "url": "https://api.github.com/repos/mizamelo/academia-php"
+        },
+        {
+          "size": 23,
+          "name": "academia-php2",
+          "url": "https://api.github.com/repos/mizamelo/academia-php2"
+        }
+      ]
+    }
+  }
 
-A inicialização da aplicação para host no AWS Elastic BeanStalk:
+````
 
-eb init cs-desafio-node --region=sa-east-1
-A criação do ambiente no AWS Elastic BeanStalk:
-
-eb create development 
-Para deploy da aplicação é utilizado a CLI do elastic beanstalk que assume como versionamento o repositório git, configurado.
-
-npm run deploy
-Este comando faz com que o projeto seja enviado para o Bucket S3 - com versão de acordo com a tag da aplicação. Os arquivos ignorados para envio ao servidor são informados em .ebignore.
-
-As variáveis de ambientes básicas - que podem ser versionadas - são informadas dentro da pasta .ebextensions
-
-Logging
-A biblioteca winston é utilizada para log da aplicação. Utilizando multiplos transportes por nível de log.
+  * Devem ser listados os 3 primeiros repositórios ordenados do maior para o menor pelo  campo 'size'
+  
+## Pronto para começar o desafio?
+* Faça um "fork" desse repositório na sua conta do Github
+* Crie uma branch com o seu nome e sobrenome ex: robson-santos
+* Após completar o desafio, crie um "pull request" nesse repositório comparando a sua branch com a master
