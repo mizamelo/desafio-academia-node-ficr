@@ -6,7 +6,7 @@ Neste desafio você deverá desenvolver uma api que retorna um currículo dinâm
 
 * Utilizar o [express](https://www.npmjs.com/package/express)
 
-* Utilizar algum pattern para estruturar o projeto
+* Utilizar alguma arquitetura ou design pattern
 
 * O projeto deverá ser publicado no github
 
